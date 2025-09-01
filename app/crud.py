@@ -13,17 +13,17 @@ def create_book(db: Session, book: schemas.BookCreate):
 def get_books(db: Session):
     return db.query(models.Book).all()
 
-def get_book(db: Session, serial_number: str):
+def get_book(db: Session, serial_number: int):
     return db.query(models.Book).filter(models.Book.serial_number == serial_number).first()
 
-def delete_book(db: Session, serial_number: str):
+def delete_book(db: Session, serial_number: int):
     db_book = get_book(db, serial_number)
     if db_book:
         db.delete(db_book)
         db.commit()
     return db_book
 
-def borrow_book(db: Session, serial_number: str, borrower: schemas.BookBorrow):
+def borrow_book(db: Session, serial_number: int, borrower: schemas.BookBorrow):
     db_book = get_book(db, serial_number)
     if db_book and not db_book.is_borrowed:
         db_book.is_borrowed = True
@@ -33,7 +33,7 @@ def borrow_book(db: Session, serial_number: str, borrower: schemas.BookBorrow):
         db.refresh(db_book)
     return db_book
 
-def return_book(db: Session, serial_number: str):
+def return_book(db: Session, serial_number: int):
     db_book = get_book(db, serial_number)
     if db_book and db_book.is_borrowed:
         db_book.is_borrowed = False

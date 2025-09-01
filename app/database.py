@@ -11,10 +11,9 @@ logger = logging.getLogger(__name__)
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:password@localhost/library")
 
 def create_db_engine():
-    for i in range(30):  # Próbuj przez 30 sekund
+    for i in range(30):
         try:
             engine = create_engine(DATABASE_URL)
-            # Test połączenia
             engine.connect()
             logger.info("Successfully connected to database")
             return engine

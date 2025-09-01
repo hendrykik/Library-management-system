@@ -19,14 +19,14 @@ def read_books(db: Session = Depends(get_db)):
     return crud.get_books(db)
 
 @app.delete("/books/{serial_number}")
-def delete_book(serial_number: str, db: Session = Depends(get_db)):
+def delete_book(serial_number: int, db: Session = Depends(get_db)):
     db_book = crud.delete_book(db, serial_number=serial_number)
     if db_book is None:
         raise HTTPException(status_code=404, detail="Book not found")
     return {"message": "Book deleted successfully"}
 
 @app.put("/books/{serial_number}/borrow", response_model=schemas.Book)
-def borrow_book(serial_number: str, borrower: schemas.BookBorrow, db: Session = Depends(get_db)):
+def borrow_book(serial_number: int, borrower: schemas.BookBorrow, db: Session = Depends(get_db)):
     db_book = crud.borrow_book(db, serial_number=serial_number, borrower=borrower)
     if db_book is None:
         raise HTTPException(status_code=404, detail="Book not found")
@@ -35,7 +35,7 @@ def borrow_book(serial_number: str, borrower: schemas.BookBorrow, db: Session = 
     return db_book
 
 @app.put("/books/{serial_number}/return", response_model=schemas.Book)
-def return_book(serial_number: str, db: Session = Depends(get_db)):
+def return_book(serial_number: int, db: Session = Depends(get_db)):
     db_book = crud.return_book(db, serial_number=serial_number)
     if db_book is None:
         raise HTTPException(status_code=404, detail="Book not found")
