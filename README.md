@@ -1,4 +1,4 @@
-# Library Management API
+# Library Management System
 
 Simple REST API for library book management built with FastAPI and PostgreSQL.
 
