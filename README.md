@@ -6,7 +6,7 @@ Simple REST API for library book management built with FastAPI and PostgreSQL.
 
 ```bash
 git clone https://github.com/hendrykik/Library-management-system.git
-cd library-api
+cd Library-management-system/
 docker compose up --build
 ```
 
